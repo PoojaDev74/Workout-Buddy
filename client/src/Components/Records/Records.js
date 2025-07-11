@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "./RecordStyle.css";
 import {useAuthContext} from "../../Hooks/useAuthContext";
@@ -12,15 +12,16 @@ const {user} = useAuthContext()
   const [workouts, setWorkouts] = useState(null);
 
   // //GET request function
-  const getWorkouts = async () => {
-    const response = await axios.get("https://workoutbuddy-backend-cu6g.onrender.com/api/workout", {
+  const getWorkouts = useCallback(async () => {
+    const response = await axios.get("http://localhost:27017/api/workout", {
       headers: {
         "Authorization" : `Bearer ${user.token}`
       }
     });
     const data = response.data;
     setWorkouts(data);
-  };
+  }, [user.token]);
+  
   useEffect(() => {
   if (user){
     getWorkouts();
