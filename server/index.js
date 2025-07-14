@@ -1,7 +1,9 @@
 require("dotenv").config();
 
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
+
 const app = express();
 
 //Port
@@ -17,9 +19,9 @@ const workoutRoutes = require("./routes/workoutRoutes")
 const userRoutes = require("./routes/userRoutes")
 
 
-// app.get("/",(req,res)=>{
-// res.send("hello")
-// })
+app.get("/",(req,res)=>{
+res.send("API is working!")
+});
 
 
 //Middleware
