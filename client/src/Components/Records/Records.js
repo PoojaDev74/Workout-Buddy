@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import "./RecordStyle.css";
 import {useAuthContext} from "../../Hooks/useAuthContext";
@@ -13,15 +13,14 @@ const {user} = useAuthContext()
 
   // //GET request function
   const getWorkouts = useCallback(async () => {
-    const response = await axios.get("http://localhost:27017/api/workout", {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/workout`, {
       headers: {
         "Authorization" : `Bearer ${user.token}`
       }
     });
     const data = response.data;
     setWorkouts(data);
-  }, [user.token]);
-  
+  }, [user]);
   useEffect(() => {
   if (user){
     getWorkouts();
@@ -44,7 +43,7 @@ const {user} = useAuthContext()
   const createWorkout = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "http://localhost:27017/api/workout",
+      `${process.env.REACT_APP_API_URL}/api/workout`,
       form,
       {
         headers: {
@@ -63,7 +62,7 @@ const {user} = useAuthContext()
 
   //DELETE REQUEST
   const deleteWorkout = async (_id) => {
-    await axios.delete(`http://localhost:27017/api/workout/${_id}`,{
+    await axios.delete(`${process.env.REACT_APP_API_URL}/api/workout/${_id}`,{
       headers: {
         "Authorization" : `Bearer ${user.token}`
       }
@@ -100,7 +99,7 @@ const {user} = useAuthContext()
   const updateWorkout = async (e) => {
     e.preventDefault();
     const { _id, title, reps, load } = updateForm;
-    await axios.patch(`http://localhost:27017/api/workout/${_id}`, {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/api/workout/${_id}`, {
       title,
       reps,
       load,
@@ -193,6 +192,7 @@ const {user} = useAuthContext()
           </div>
             <button>Update</button>
           </form>
+          
           </div>
         )}
 
