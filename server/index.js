@@ -19,10 +19,6 @@ const workoutRoutes = require("./routes/workoutRoutes")
 const userRoutes = require("./routes/userRoutes")
 
 
-// app.get("/",(req,res)=>{
-// res.send("API is working!")
-// });
-
 
 //Middleware
 app.use(express.json())
